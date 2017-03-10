@@ -1,0 +1,51 @@
+1. Reducer
+		This is the driver class which parses its command-line arguments, 
+		constructs a Record object and performs the algorithm described.
+
+2. FileIterator
+		Returns the lines of a file one by one.
+
+3. FileLine
+		Represents the string data from a single line in a file, as well as a reference to the FileIterator that produced it.
+
+4. Record
+		An abstract class which WeatherRecord and ThesaurusRecord must extend. Its methods are described below:
+
+		void join(FileLine l): A Record must be able to accept a FileLine and "join" it, meaning incorporate it into its current data structures.
+		String toString(): This method should return the String representation of the Record.
+		void clear(): This method should (re)initialize the data structures used by the Record.
+		Comparator<FileLine> getComparator(): This method should return a Comparator<FileLine>, i.e. a class which implements Comparator<FileLine>.
+		
+5. WeatherRecord/ThesaurusRecord
+		These classes should extend Record.
+
+		WeatherRecord
+		Each time we write a line to the final output file, it will contain:
+		Station ID
+		Date
+		Comma-separated list of measurements
+		ThesaurusRecord
+		Each time we write a line to the final output file, it will contain:
+		Word
+		Comma-separated list of synonyms
+		
+		Note: these should be in sorted order, and not contain any duplicates. We will learn more about sorting later in the semester. 
+		For the time being, you can just use Java's Collection.sort(List) method, as shown in this example file.
+
+6. MinPriorityQueueADT/FileLinePriorityQueue
+		The key to the above algorithm is having a (minimum) priority queue that stores FileLines. At each step in the algorithm, a FileLine is removed from the queue and potentially replaced.
+
+		It’s your job to create the queue such that it maintains an array-based minimum priority queue (see the notes on Priority Queues) of these FileLines. The class must implement MinPriorityQueueADT<FileLine>:
+
+			public FileLine removeMin() throws PriorityQueueEmptyException;
+			public void insert(FileLine fl) throws PriorityQueueFullException;
+			public boolean isEmpty();
+		Note: You must also implement the following constructor:
+
+			public FileLinePriorityQueue(int initialSize, Comparator<FileLine> cmp);  
+		What makes a FileLine a minimum element? In order to maintain the order property of the queue, you must use the compare(FileLine a, FileLine b) method of the Comparator<FileLine> passed in the constructor. 
+
+		Notes:
+
+		For removeMin() you must throw a PriorityQueueEmptyException if the queue is empty.
+		For insert(), you must throw a PriorityQueueFullException if the queue is full.
