@@ -32,7 +32,7 @@
 		Note: these should be in sorted order, and not contain any duplicates. We will learn more about sorting later in the semester. 
 		For the time being, you can just use Java's Collection.sort(List) method, as shown in this example file.
 
-6. MinPriorityQueueADT/FileLinePriorityQueue
+CL 6. MinPriorityQueueADT/FileLinePriorityQueue
 		The key to the above algorithm is having a (minimum) priority queue that stores FileLines. At each step in the algorithm, a FileLine is removed from the queue and potentially replaced.
 
 		It’s your job to create the queue such that it maintains an array-based minimum priority queue (see the notes on Priority Queues) of these FileLines. The class must implement MinPriorityQueueADT<FileLine>:
