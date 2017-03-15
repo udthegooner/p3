@@ -1,14 +1,14 @@
-1. Reducer
+- 1. Reducer
 		This is the driver class which parses its command-line arguments, 
 		constructs a Record object and performs the algorithm described.
 
-2. FileIterator
+- 2. FileIterator
 		Returns the lines of a file one by one.
 
-3. FileLine
+- 3. FileLine
 		Represents the string data from a single line in a file, as well as a reference to the FileIterator that produced it.
 
-4. Record
+- 4. Record
 		An abstract class which WeatherRecord and ThesaurusRecord must extend. Its methods are described below:
 
 		void join(FileLine l): A Record must be able to accept a FileLine and "join" it, meaning incorporate it into its current data structures.
@@ -16,7 +16,7 @@
 		void clear(): This method should (re)initialize the data structures used by the Record.
 		Comparator<FileLine> getComparator(): This method should return a Comparator<FileLine>, i.e. a class which implements Comparator<FileLine>.
 		
-5. WeatherRecord/ThesaurusRecord
+MP o 5. WeatherRecord/ThesaurusRecord
 		These classes should extend Record.
 
 		WeatherRecord
