@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * FileIterator represents a sorted input file. It implements iterator,
  * where each call to next() returns a FileLine object representing the next  
- * line in the file. The index field indicates the positive 
+ * line in the file. The index field indicates the position
  * of this FileIterator relative to the other FileIterators in use by a given instance
  * of the Reducer class.
  */
