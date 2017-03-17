@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -7,6 +8,13 @@ import java.util.Comparator;
  * in the same order as the files from which they came are indexed.
  */
 public class WeatherRecord extends Record {
+
+	// ArrayList that stores Stations
+	ArrayList<String> stations = new ArrayList<String>();
+	// ArrayList that stores Dates
+	ArrayList<String> dates = new ArrayList<String>();
+	// 2D ArrayList that stores data
+	ArrayList<Object> data = new ArrayList<Object>();
 
 	/**
 	 * Constructs a new WeatherRecord by passing the parameter to the parent
@@ -24,68 +32,25 @@ public class WeatherRecord extends Record {
 	private class WeatherLineComparator implements Comparator<FileLine> {
 		public int compare(FileLine l1, FileLine l2) {
 			
-			// Stores entire FileLine string to be parsed.
-			String toParse1 = "";
-			// Stores station parsed from string.
-			String station1 = "";
-			// Stores date parsed from string.
-			String date1 = "";
-			// Splits the parsed date by comma.
-			String[] parsed1 = {};
-
-			// Stores entire FileLine string to be parsed.
-			String toParse2 = "";
-			// Stores station parsed from string.
-			String station2 = "";
-			// Stores date parsed from string.
-			String date2 = "";
-			// Splits the parsed date by comma.
-			String[] parsed2 = {};
-			
-			// Compare integer
+			//Compare result
 			int comp;
 
-			// Assigns the strings to parse
-			toParse1 = l1.getString();
-			toParse2 = l2.getString();
+			//Compare the stations first at their indices
+			comp = stations.get(l1.getFileIterator().getIndex()).compareTo(stations.get(l2.getFileIterator().getIndex()));
 			
-			// Separates by comma
-			parsed1 = toParse1.split(",");
-			parsed2 = toParse2.split(",");
-			
-			// Assign variables from parsed data
-			station1 = parsed1[0];
-			date1 = parsed1[1];
-			station2 = parsed2[0];
-			date2 = parsed2[1];
-
-			// Parse the station from each string, then compare.
-			comp = station1.compareTo(station2);
-			
+			//If the stations were not the same, return their compareTo value,
+			//otherwise, if they were the same, return the date comparison.
 			switch(comp) {
-			case 1:
-				return 1;
-			
 			case -1:
 				return -1;
-				
-			// If the stations are the same, compare dates.	
-			case 0:
-				comp = date1.compareTo(date2);
-				break;
-			}
-			
-			switch(comp) {
 			case 1:
 				return 1;
-			
-			case -1:
-				return -1;
-				
 			case 0:
-				return 0;
+				return dates.get(l1.getFileIterator().getIndex()).compareTo(stations.get(l2.getFileIterator().getIndex()));
 			}
-			return 0;
+			
+			//This should never be the return value
+			return 2;
 		}
 
 		public boolean equals(Object o) {
@@ -106,7 +71,22 @@ public class WeatherRecord extends Record {
 	 * readings with Double.MIN_VALUE
 	 */
 	public void clear() {
-		// TODO initialize/reset data members
+
+		// Reset Stations.
+		for (int i = 0; i < stations.size(); i++) {
+			stations.add(i, Double.toString(Double.MIN_VALUE));
+		}
+
+		// Reset Dates.
+		for (int i = 0; i < dates.size(); i++) {
+			dates.add(i, Double.toString(Double.MIN_VALUE));
+		}
+
+		// Reset Data.
+		for (int i = 0; i < data.size(); i++) {
+			data.add(i, Double.toString(Double.MIN_VALUE));
+		}
+
 	}
 
 	/**
@@ -119,7 +99,27 @@ public class WeatherRecord extends Record {
 	 * set to the station and date values which were similarly parsed.
 	 */
 	public void join(FileLine li) {
-		// TODO implement join() functionality
+
+		// Stores the split string
+		String[] splitter = new String[25];
+		// Stores the split string as array list
+		ArrayList<String> splitArray = new ArrayList<String>();
+
+		// Parse out the fileLine string
+		splitter = li.getString().split(",");
+		for (int i = 0; i < splitter.length; i++) {
+			splitArray.add(splitter[i]);
+		}
+
+		// Assign specific data to its data structure
+		stations.add(li.getFileIterator().getIndex(), splitArray.get(0));
+		dates.add(li.getFileIterator().getIndex(), splitArray.get(1));
+		splitArray.remove(0);
+		splitArray.remove(0);
+
+		// Add all data from li into the corresponding index of data ArrayList.
+		data.add(li.getFileIterator().getIndex(), splitArray);
+
 	}
 
 	/**
@@ -127,8 +127,36 @@ public class WeatherRecord extends Record {
 	 * format.
 	 */
 	public String toString() {
-		// TODO
+		
+		//String to be returned
+		String returnString = "";
+		
+		for (int i = 0; i < stations.size(); i++) {
+			
+			//Checks if valid info at that index.
+			if (stations.get(i).contains(Double.toString(Double.MIN_VALUE)) || stations.get(i).isEmpty()) {
+				continue;
+			}
+			//If valid info, add to the string.
+			returnString.concat(stations.get(i));
+			returnString.concat(",");
+			returnString.concat(dates.get(i));
+			returnString.concat(",");
+			for (int j = 0; j < data.size(); j++) {
+				//Special case if at end of list (no comma)
+				if (j == data.size() - 1) {
+					returnString.concat((String) data.get(j));
+				}
+				returnString.concat(data.get(j) + ",");
+			}
+			
+			//If at the end of the list, add a new line.
+			if (i == stations.size() - 1) {
+				returnString.concat("\n");
+			}
+			
+		}
 
-		return null;
+		return returnString;
 	}
 }

@@ -73,6 +73,6 @@ public class Reducer {
 			System.exit(1);
 		}
 
-		// TODO
+		r.join(null);
 	}
 }
