@@ -72,7 +72,5 @@ public class Reducer {
 			System.out.println("Invalid type of data! " + type);
 			System.exit(1);
 		}
-
-		r.join(null);
 	}
 }
