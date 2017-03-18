@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////////
+//Semester:         CS367 Spring 2017
+//PROJECT:          P3
+//FILE:             FileIterator.java
+//
+//TEAM:    #46 Paras
+//Authors: Udhbhav Gupta
+//
+////////////////////////////80 columns wide //////////////////////////////////
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
