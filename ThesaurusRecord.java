@@ -6,7 +6,10 @@ import java.util.Comparator;
  */
 
 public class ThesaurusRecord extends Record{
-    // TODO declare data structures required
+	//Array to store synonyms
+	String[] syn = new String[getNumFiles()];
+	//Stores original word
+	String word;
 
 	/**
 	 * Constructs a new ThesaurusRecord by passing the parameter to the parent constructor
@@ -25,9 +28,12 @@ public class ThesaurusRecord extends Record{
 	 */
 	private class ThesaurusLineComparator implements Comparator<FileLine> {
 		public int compare(FileLine l1, FileLine l2) {
-			// TODO implement compare() functionality
-
-			return 0;
+			
+			String[] line1 = l1.getString().split(":");
+			String[] line2 = l2.getString().split(":");
+			
+			//Comparing the words up to the ":"
+			return line1[0].compareTo(line2[0]);
 		}
 		
 		public boolean equals(Object o) {
@@ -46,7 +52,8 @@ public class ThesaurusRecord extends Record{
 	 * This method should (1) set the word to null and (2) empty the list of synonyms.
 	 */
     public void clear() {
-		// TODO initialize/reset data members
+		syn = new String[getNumFiles()];
+		word = null;
     }
 	
 	/**
@@ -54,14 +61,36 @@ public class ThesaurusRecord extends Record{
 	 * which are not already found in this ThesaurusRecord's list of synonyms.
 	 */
     public void join(FileLine w) {
-		// TODO implement join() functionality
+    	//Splits by the colon
+		String[] splitArray = w.getString().split(":");
+		
+		word = splitArray[0];
+		
+		//Setting the synonyms
+		syn[w.getFileIterator().getIndex()] = splitArray[1];
     }
 	
 	/**
 	 * See the assignment description and example runs for the exact output format.
 	 */
     public String toString() {
-		// TODO
-		return null;
+		
+    	String returnString = word + ":";
+    	
+    	//loop that adds all synonyms to return string
+    	for (int i = 0; i < syn.length; i++) {
+    		if (syn[i] != null) {
+    			//Make sure not at the end of the list
+    			if (i != syn.length - 1) {
+        			returnString.concat(syn[i] + ",");
+    			}
+    			else {
+    				returnString.concat(syn[i]);
+    			}
+    		}
+    		
+    	}
+    	
+		return returnString;
 	}
 }
