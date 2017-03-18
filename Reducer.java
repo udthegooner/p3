@@ -23,17 +23,14 @@ public class Reducer {
     private String type,dirName,outFile;
 
     public static void main(String[] args) {
-//		if (args.length != 3) {
-//			System.out.println("Usage: java Reducer <weather|thesaurus> <dir_name> <output_file>");
-//			System.exit(1);
-//		}
+		if (args.length != 3) {
+			System.out.println("Usage: java Reducer <weather|thesaurus> <dir_name> <output_file>");
+			System.exit(1);
+		}
 
-//		String type = args[0];
-//		String dirName = args[1];
-//		String outFile = args[2];
-		String type = "weather";
-		String dirName = "sample_data\\weather_data";
-		String outFile = "yolo.txt";
+		String type = args[0];
+		String dirName = args[1];
+		String outFile = args[2];
 		
 		Reducer r = new Reducer(type, dirName, outFile);
 		
