@@ -132,6 +132,5 @@ public class Reducer {
 		writer.println(r.toString()); //writing last record to output file
 		r.clear();
 		writer.close(); //closing PrintWriter
-		System.out.println("done");
     }
 }
