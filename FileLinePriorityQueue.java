@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 //Semester:         CS367 Spring 2017
 //PROJECT:          P3
 //FILE:             FileIterator.java
@@ -6,7 +6,7 @@
 //TEAM:    #46 Paras
 //Authors: Udhbhav Gupta, Collin Lacy
 //
-////////////////////////////80 columns wide //////////////////////////////////
+////////////////////////////////////////104 columns wide /////////////////////////////////////////////
 import java.util.Comparator;
 
 /**
@@ -17,7 +17,7 @@ import java.util.Comparator;
 public class FileLinePriorityQueue implements MinPriorityQueueADT<FileLine> {
 
 	private Comparator<FileLine> cmp; //Comparator
-	private int numItems; //number of nodes in the queue
+	private int numItems; //number of items in the queue
 	private FileLine[] pq; //stores FileLine objects
 
 	/**
