@@ -105,17 +105,16 @@ public class WeatherRecord extends Record {
 	 */
 	public String toString() {
 		String returnString = station + "," + date + ","; //String to be returned
-		
-		//loop that adds all data values but the last to return string
-		for (int i = 0; i < data.length-1; i++)
+	
+		//loop that adds all data values to return string
+		for (int i = 0; i < data.length; i++){
 			if (data[i] == null) 
 				returnString += "-";
 			else
-				returnString += String.format("%.1f", Double.parseDouble(data[i])) + ",";
-		
-		//adding last data value to returnString
-		returnString += data[data.length - 1];
-		
+				returnString += String.format("%.1f", Double.parseDouble(data[i]));
+			if (i != data.length-1)
+				returnString += ",";
+		}
 		return returnString;
 	}
 }
