@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////////
+//Semester:         CS367 Spring 2017
+//PROJECT:          P3
+//FILE:             FileIterator.java
+//
+//TEAM:    #46 Paras
+//Authors: Udhbhav Gupta, Collin Lacy
+//
+////////////////////////////80 columns wide //////////////////////////////////
 import java.util.Comparator;
 
 /**
